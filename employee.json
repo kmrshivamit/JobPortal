@@ -1,0 +1,12 @@
+{
+    "user_name": "kmrshivamit",
+    "password": "abc123",
+    "first_name": "John",
+    "last_name": "Doe",
+    "address": "123 Main St",
+    "company": "ABC Inc",
+    "date_of_joining": "11/05/2023",
+    "skills": ["Java", "Python", "SQL"],
+
+    "salary_grade":"C1"
+}
