@@ -62,15 +62,6 @@ class DataBase:
             logger.error(f"Issue in verifying if user_name already exists: {e}", exc_info=True)
             return False  # Return False in case of an error
         
-
-            
-            
-            
-        
-        
-
-    
-    
     def add_employee(self,emp:Employee):
         row=self.employees()
         row.user_name = emp.user_name
@@ -93,6 +84,69 @@ class DataBase:
         finally:
             session.close()
             
+    def is_existing_username_password(self,user_name,password):
+        try:
+            with self.get_session() as session:
+                print(user_name)
+                # Check if the user_name already exists in the database
+                user = session.query(self.employees).filter(self.employees.user_name.in_([user_name])).first()
+                if(user.password==password):
+                    return True
+                return user
+        except Exception as e:
+            logger.error(f"Issue in verifying if user_name already exists: {e}", exc_info=True)
+            return False  # Return False in case of an error
+    def update_employee(self,data):
+        try:
+            with self.get_session() as session:
+                # Check if the user_name already exists in the database
+                user = session.query(self.employees).filter(self.employees.user_name.in_([data['user_name']])).first()
+                if(user.password==data['password']):
+                      for key in data.keys():
+                          user.key=key
+                session.add(user)
+                session.commit()
+                return True
+                 
+        except Exception as e:
+            logger.error(f"Issue in verifying if user_name already exists: {e}", exc_info=True)
+            return False  # Return False in case of an error
+        
+    def remove_employee(self,user_name,password):
+            try:
+                with self.get_session as session:
+                        user = session.query(self.employees).filter(self.employees.user_name.in_(['user_name'])).first()
+                        if(user is not None and (user.password==password)):
+                            user.is_active=0       
+                            session.add(user)
+                            session.commit()
+                            return True
+                        return False
+            except Exception as e:
+                logger.error(f"Error while deleting user")
+        
+    def view_employee(self):
+        users_list=[]
+        try:
+            with self.get_session() as session:
+                users=session.query(self.employees)
+                for user in users:
+                    users_list.append(Employee(user.user_name,user.password,user.first_name,user.last_name,user.address,user.company,user.date_of_joining,user.skills,user.salary_grade,user.is_active))
+                return users_list
+                      
+
+                       
+        except Exception as e:
+            logger.error(f"Error while reading records from db",e)
+            
+        
+        
+                
+                
+                
+        
+        
+        
             
             
         

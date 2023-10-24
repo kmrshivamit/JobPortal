@@ -8,5 +8,6 @@
     "date_of_joining": "11/05/2023",
     "skills": ["Java", "Python", "SQL"],
 
-    "salary_grade":"C1"
+    "salary_grade":"C1",
+    "is_active":1
 }

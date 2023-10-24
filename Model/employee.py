@@ -1,6 +1,6 @@
 
 class Employee:
-    def __init__(self, user_name, password, first_name, last_name, address, company, date_of_joining, skills,salary_grade):
+    def __init__(self, user_name, password, first_name, last_name, address, company, date_of_joining, skills,salary_grade,is_active):
         self._user_name = user_name
         self._password = password
         self._first_name = first_name
@@ -10,6 +10,7 @@ class Employee:
         self._date_of_joining = date_of_joining
         self._skills = skills
         self._salary_grade=salary_grade
+        self._is_active=is_active
         
          
 
@@ -76,9 +77,17 @@ class Employee:
     @skills.setter
     def skills(self, value):
         self._skills = value
+    
+    @property
+    def is_active(self):
+        return self._is_active
+    
+    @is_active.setter
+    def is_active(self,value):
+         self._is_active=value
 
     def __str__(self):
-        return f"Employee: {self._first_name} {self.last_name}, User: {self.user_name}, Company: {self.company}, Skills:{self.skills}"
+        return f"Employee: {self._first_name} {self.last_name}, User: {self.user_name}, Company: {self.company}, Skills:{self.skills}, Is_Active:{self.is_active}"
     
     def to_json(self):
         return {"user_name": self.user_name,
@@ -89,7 +98,8 @@ class Employee:
         "company":self.company,
         "date_of_joining":self.date_of_joining,
         "skills":self.skills ,
-        "salary_grade":self._salary_grade   
+        "salary_grade":self._salary_grade ,
+        "is_active":self.is_active 
         }
 
     @property
@@ -99,10 +109,11 @@ class Employee:
     @salary_grade.setter
     def salary_grade(self,grade):
         self._grade=grade
+
         
         
 if __name__=="__main__":
     e=Employee('kmrshivamit', "Shivam@12345", 
-                   "Kumar", "Shivam", "Darbhanga", "LTIMindtree", '22/08/2024', ['python','Java','Spark'],'C1')
+                   "Kumar", "Shivam", "Darbhanga", "LTIMindtree", '22/08/2024', ['python','Java','Spark'],'C1',1)
     e.grade='C3'
     print(e.grade)
